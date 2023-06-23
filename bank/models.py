@@ -14,6 +14,7 @@ class AccountType(models.Model):
     interest = models.FloatField(null=False, blank=False)
     
     
+
 class User(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50, null=False, blank=False)
