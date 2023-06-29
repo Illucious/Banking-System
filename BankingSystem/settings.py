@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -126,10 +125,11 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# APPEND_SLASH = False
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
-# LOGIN_REDIRECT_URL = 'home'
+# authrntication Model
+AUTH_USER_MODEL = 'bank.User'
 
-# EMAIL CONFIGURE
-EMAIL_HOST_USER = 'visheshgarg570@gmail.com'
-EMAIL_HOST_PASSWORD = 'your passwrod here'
+# custom authentication backend
+AUTHENTICATION_BACKENDS = [
+    'bank.authentication.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
