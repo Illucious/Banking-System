@@ -130,6 +130,6 @@ AUTH_USER_MODEL = 'bank.User'
 
 # custom authentication backend
 AUTHENTICATION_BACKENDS = [
-    'bank.authentication.EmailBackend',
+    # 'bank.authentication.EmailBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
