@@ -1,20 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.utils.text import slugify
 
 # Create your models here.
-
-
-class AccountType(models.Model):
-    choices = (
-        ('Savings', 'Savings'),
-        ('Current', 'Current'),
-        ('Loan', 'Loan'),
-    )
-
-    id = models.AutoField(primary_key=True)
-    type = models.CharField(max_length=20, choices=choices)
-    interest = models.FloatField(null=False, blank=False)
 
 
 class User(AbstractUser):
@@ -31,10 +18,16 @@ class User(AbstractUser):
 
 
 class Account(models.Model):
+    choices = (
+        ('Savings', 'Savings'),
+        ('Current', 'Current'),
+        ('Loan', 'Loan'),
+    )
+
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    type = models.ForeignKey(AccountType, on_delete=models.CASCADE)
+    type = models.CharField(max_length=20, choices=choices)
+    interest = models.FloatField(null=False, blank=False, default=3)
     balance = models.FloatField(null=False, blank=False)
-    interest = models.FloatField(null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

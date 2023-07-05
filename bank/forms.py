@@ -29,3 +29,4 @@ class LoginForm(forms.Form):
 
     class Meta:
         fields = ("email", "password")
+        

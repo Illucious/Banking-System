@@ -11,7 +11,7 @@ pip install -r requirements.txt
 ```
 ---
 ## Features to add
-- [ ] Login and Signup with authentication
+- [x] Login and Signup with authentication
 - [ ] ability to add, withdraw money,
 - [ ] ability to shend money to another acount
 - [ ] have savings, loan, current, income account
