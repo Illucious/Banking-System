@@ -4,3 +4,14 @@
 Dashboard
 {% endblock title %}
 
+{% block body %}
+<h1>Welcome {{ name }} </h1>
+
+<p> You have no account yet. Create one </p>
+<form method="post" action="{% url 'dashboard' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create</button>
+  </form>
+{% endblock body %}
+
