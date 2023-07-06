@@ -7,11 +7,38 @@ Dashboard
 {% block body %}
 <h1>Welcome {{ name }} </h1>
 
-<p> You have no account yet. Create one </p>
-<form method="post" action="{% url 'dashboard' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Create</button>
-  </form>
+    {% if account is None %}
+        <p> You have no account yet. Create one </p>
+        <form method="post" action="{% url 'dashboard' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Create</button>
+        </form>
+    {% else %}
+        <H2>Account Details</H2>
+        <table>
+            <tr>
+                <td>Account Number</td>
+                <td>{{ account.account_number }}</td>
+            </tr>
+            <tr>
+                <td>Account Name</td>
+                <td>{{ account.account_name }}</td>
+            </tr>
+            <tr>
+                <td>Account Balance</td>
+                <td>{{ account.balance }}</td>
+            </tr>
+            <tr>
+                <td>Account Type</td>
+                <td>{{ account.account_type }}</td>
+            </tr>
+            <tr>
+                <td>Interest</td>
+                <td>{{ account.interest }}</td>
+            </tr>
+        </table>
+    {% endif %}
+
 {% endblock body %}
 

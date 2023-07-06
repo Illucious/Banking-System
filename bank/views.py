@@ -53,13 +53,26 @@ def dashboard(request):
     user_phone = current_user.phone
     user_address = current_user.address
     user_account = current_user.account
+    if user_account is not None:
+        account_details = Account.objects.filter(id=user_account.id).first()
+    else:
+        account_details = None
 
     if request.method == "POST":
         form = AccountForm(request.POST)
         if form.is_valid():
-            type = form.cleaned_data["type"]
             balance = form.cleaned_data["balance"]
-            account = Account.objects.create(type=type, balance=balance)
+            print(balance)
+            type = form.cleaned_data["type"]
+            if type == "Savings":
+                interest = 3.5
+            elif type == "Current":
+                interest = 0.00
+            elif type == "Loan":
+                interest = 11.3
+            else:
+                interest = 0.00
+            account = Account.objects.create(type=type, balance=balance, interest=interest)
             account.save()
             return redirect("dashboard")
     else:
@@ -68,5 +81,6 @@ def dashboard(request):
     return render(request, "bank/dashboard.html", {
                                                     "form": form, "name": user_name, 
                                                     "email": user_email, "phone": user_phone, 
-                                                    "address": user_address, "account": user_account
+                                                    "address": user_address, "account": user_account,
+                                                    "account_details": account_details,
                                                 })

@@ -38,8 +38,8 @@ class AccountForm(forms.Form):
         ('Loan', 'Loan'),
     )
 
-    type = forms.ChoiceField(choices=choices)
-    balance = forms.FloatField(label="Balance")
+    type = forms.ChoiceField(choices=choices, required=True)
+    balance = forms.FloatField(label="Balance", required=True)
 
     class Meta:
         fields = ("type", "balance")
