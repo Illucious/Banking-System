@@ -33,9 +33,9 @@ class LoginForm(forms.Form):
 
 class AccountForm(forms.Form):
     choices = (
-        ('Savings', 'Savings'),
-        ('Current', 'Current'),
-        ('Loan', 'Loan'),
+        ("Savings", "Savings"),
+        ("Current", "Current"),
+        ("Loan", "Loan"),
     )
 
     type = forms.ChoiceField(choices=choices, required=True)
@@ -43,4 +43,3 @@ class AccountForm(forms.Form):
 
     class Meta:
         fields = ("type", "balance")
-        

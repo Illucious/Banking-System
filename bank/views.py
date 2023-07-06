@@ -72,15 +72,24 @@ def dashboard(request):
                 interest = 11.3
             else:
                 interest = 0.00
-            account = Account.objects.create(type=type, balance=balance, interest=interest)
+            account = Account.objects.create(
+                type=type, balance=balance, interest=interest
+            )
             account.save()
             return redirect("dashboard")
     else:
         form = AccountForm()
-        
-    return render(request, "bank/dashboard.html", {
-                                                    "form": form, "name": user_name, 
-                                                    "email": user_email, "phone": user_phone, 
-                                                    "address": user_address, "account": user_account,
-                                                    "account_details": account_details,
-                                                })
+
+    return render(
+        request,
+        "bank/dashboard.html",
+        {
+            "form": form,
+            "name": user_name,
+            "email": user_email,
+            "phone": user_phone,
+            "address": user_address,
+            "account": user_account,
+            "account_details": account_details,
+        },
+    )
