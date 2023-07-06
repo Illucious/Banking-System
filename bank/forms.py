@@ -29,4 +29,18 @@ class LoginForm(forms.Form):
 
     class Meta:
         fields = ("email", "password")
+
+
+class AccountForm(forms.Form):
+    choices = (
+        ('Savings', 'Savings'),
+        ('Current', 'Current'),
+        ('Loan', 'Loan'),
+    )
+
+    type = forms.ChoiceField(choices=choices, required=True)
+    balance = forms.FloatField(label="Balance", required=True)
+
+    class Meta:
+        fields = ("type", "balance")
         

@@ -1,8 +1,9 @@
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
+from .models import Account
 
-from .forms import LoginForm, SignUpForm
+from .forms import LoginForm, SignUpForm, AccountForm
 
 
 # Create your views here.
@@ -46,4 +47,40 @@ def logout_view(request):
 
 @login_required
 def dashboard(request):
-    return render(request, "bank/dashboard.html")
+    current_user = request.user
+    user_name = current_user.name
+    user_email = current_user.username
+    user_phone = current_user.phone
+    user_address = current_user.address
+    user_account = current_user.account
+    if user_account is not None:
+        account_details = Account.objects.filter(id=user_account.id).first()
+    else:
+        account_details = None
+
+    if request.method == "POST":
+        form = AccountForm(request.POST)
+        if form.is_valid():
+            balance = form.cleaned_data["balance"]
+            print(balance)
+            type = form.cleaned_data["type"]
+            if type == "Savings":
+                interest = 3.5
+            elif type == "Current":
+                interest = 0.00
+            elif type == "Loan":
+                interest = 11.3
+            else:
+                interest = 0.00
+            account = Account.objects.create(type=type, balance=balance, interest=interest)
+            account.save()
+            return redirect("dashboard")
+    else:
+        form = AccountForm()
+        
+    return render(request, "bank/dashboard.html", {
+                                                    "form": form, "name": user_name, 
+                                                    "email": user_email, "phone": user_phone, 
+                                                    "address": user_address, "account": user_account,
+                                                    "account_details": account_details,
+                                                })
