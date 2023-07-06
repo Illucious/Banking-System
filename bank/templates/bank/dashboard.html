@@ -14,16 +14,12 @@ Dashboard
             {{ form.as_p }}
             <button type="submit">Create</button>
         </form>
-    {% else %}
+    {% elif account is not None %}
         <H2>Account Details</H2>
         <table>
             <tr>
                 <td>Account Number</td>
-                <td>{{ account.account_number }}</td>
-            </tr>
-            <tr>
-                <td>Account Name</td>
-                <td>{{ account.account_name }}</td>
+                <td>{{ account.id }}</td>
             </tr>
             <tr>
                 <td>Account Balance</td>
@@ -31,7 +27,7 @@ Dashboard
             </tr>
             <tr>
                 <td>Account Type</td>
-                <td>{{ account.account_type }}</td>
+                <td>{{ account.type }}</td>
             </tr>
             <tr>
                 <td>Interest</td>

@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
-from .models import Account
+from .models import Account, User
 
 from .forms import LoginForm, SignUpForm, AccountForm
 
@@ -54,15 +54,15 @@ def dashboard(request):
     user_address = current_user.address
     user_account = current_user.account
     if user_account is not None:
-        account_details = Account.objects.filter(id=user_account.id).first()
+        account_details = Account.objects.filter(id=user_account.id)
     else:
         account_details = None
+        print(user_name)
 
     if request.method == "POST":
         form = AccountForm(request.POST)
         if form.is_valid():
             balance = form.cleaned_data["balance"]
-            print(balance)
             type = form.cleaned_data["type"]
             if type == "Savings":
                 interest = 3.5
@@ -76,6 +76,9 @@ def dashboard(request):
                 type=type, balance=balance, interest=interest
             )
             account.save()
+
+            user_info = User.objects.filter(username=user_email)
+            user_info.update(account=account)
             return redirect("dashboard")
     else:
         form = AccountForm()

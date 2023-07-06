@@ -12,7 +12,7 @@ pip install -r requirements.txt
 ---
 ## Features to add
 - [x] Login and Signup with authentication
-- [ ] have savings, loan, current, income account
+- [x] have savings, loan, current, income account
 - [ ] ability to add, withdraw money,
 - [ ] ability to shend money to another acount
 - [ ] make a better frontend ui
